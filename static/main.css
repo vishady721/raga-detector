@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'League Spartan';
+    src: url("LeagueSpartan-Light.ttf");
+  }
+
+body {
+    margin: 4px;
+    font-family: 'League Spartan';
+    font-size: 30px;
+    line-height: 60px;
+    color:rgb(255, 230, 248);
+    background-color: black;
+    margin-bottom: 0px;
+  }
+
+
+.container {
+    border: rgb(255, 230, 248);
+    text-align: center;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+input {
+    padding: 6px;
+    outline: white;
+    border: 1px solid white;
+    border-radius: 3px;
+    background-color: rgba(0,0,0, 0.5);
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'League Spartan';
+}
+input[type="submit"] {
+    font-family: 'League Spartan';
+    cursor: pointer;
+    border: 1px solid rgb(255, 230, 248);
+    font-size: 20px;
+}
