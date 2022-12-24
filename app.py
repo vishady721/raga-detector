@@ -28,7 +28,7 @@ def get_aro_avaro():
     id = cfg.credentials['id']
     secret = cfg.credentials['secret']
     uri = cfg.credentials['redirect_uri']
-    scope = 'user-read-playback-state, user-modify-playback-state, user-read-currently-playing'
+    scope = ''
     client_credentials_manager = spotipy.SpotifyOAuth(id, secret, uri, scope=scope)
     token_dict = client_credentials_manager.get_access_token()
     token = token_dict['access_token']
