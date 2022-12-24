@@ -20,9 +20,9 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def hello():
     return render_template("raga.html")
+
 @app.route("/", methods=["POST"])
 def get_aro_avaro():
-    print("HIISIIIIIIIIi")
     #spotify oauth flow
     search = request.form['text']
     id = cfg.credentials['id']
@@ -59,5 +59,6 @@ def get_aro_avaro():
     dind = d+7
     n = np.argmax([scale_t[k] for k in range(dind+1, 12)]) + 1 + (d-1)
     arorep = "S R{} G{} M{} P D{} N{} S".format(r, g, m, d, n)
+    print('whaat')
     return render_template('answer.html', song=search, raaga=scale_to_rag[arorep].lower())
 
