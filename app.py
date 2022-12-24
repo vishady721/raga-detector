@@ -12,8 +12,9 @@ from functools import partial
 import config as cfg
 from melakarta import scale_to_rag
 from random import randint, random
+from playscale import play_raga
 import numpy as np
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, Response
 
 app = Flask(__name__)
 
@@ -59,6 +60,9 @@ def get_aro_avaro():
     dind = d+7
     n = np.argmax([scale_t[k] for k in range(dind+1, 12)]) + 1 + (d-1)
     arorep = "S R{} G{} M{} P D{} N{} S".format(r, g, m, d, n)
-    print('whaat')
-    return render_template('answer.html', song=search, raaga=scale_to_rag[arorep].lower())
+    return render_template('answer.html', aro=arorep, song=search, raga=scale_to_rag[arorep].lower())
+
+@app.route("/audio/<aro>", methods=["GET"])
+def playaudio(aro):
+    return Response(play_raga(aro), mimetype='audio/mp3')
 

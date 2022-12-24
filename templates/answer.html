@@ -7,9 +7,12 @@
     </head>
     <body>
         <div class="container">
-            {{song}} is in: {{raaga}} raaga <br> <br>
+            {{song}} is in: {{raga}}<br> <br>
             <form method="get">
                 <input type="submit" value="New Song" >
+            </form> <br> <br>
+            <form action="{{ url_for('playaudio', aro=aro) }}" method="get">
+                <input type="submit" value="Play Scale" name="scale">
             </form>
          </div>
     </body>
