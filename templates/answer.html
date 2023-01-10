@@ -1,19 +1,19 @@
-
-
- <html>
+<html>
     <head>
         <link rel="stylesheet" type="text/css" href="../static/main.css">
         <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     </head>
     <body>
         <div class="container">
-            {{song}} is in: {{raga}}<br> <br>
+            <div class="topnav">
+                <a class="active" href="/">home</a>
+                <a href="/about">about</a>
+              </div>
+            the melakarta raga closest to <a href={{url}} target="_blank"><b><span style="color: rgb(197, 255, 203)">{{song}}</span></b></a> by {{artists}} is: {{raga}}<br>
             <form method="get">
                 <input type="submit" value="New Song" >
-            </form> <br> <br>
-            <form action="{{ url_for('playaudio', aro=aro) }}" method="get">
-                <input type="submit" value="Play Scale" name="scale">
-            </form>
+            </form> 
+            <audio src="test.wav" type="audio/x-wav" controls>
          </div>
     </body>
 </html>

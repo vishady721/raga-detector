@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../static/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    </head>
+    <body>
+        <div class="about">
+            <div class="topnav">
+                <a class="navvy" href="/">home</a>
+                <a class="active" href="/about">about</a>
+              </div>
+            <h2>about the melakarta ragas</h2>
+            <p>in carnatic music, there are seven notes: S, R, G, M, P, D, N. while S (tonic) and P (dominant) are fixed, there are three options for R (R1, R2, R3), three options for G (G1, G2, G3), two options for M (M1, M2), three options for D (D1, D2, D3), and three options for N (N1, N2, N3). most songs in carnatic music are entirely based on a scale, also known as a raga. ragas are represented by their ascending scale (arohanam) and descending scale (avarohanam). while ragas can have any number of notes, and can be either symmetrical or asymmetrical, the following website focuses on the melakarta, or parent ragas.</p>
+            <p>if the tonic is in C, these are the following note mappings: 
+            C: S; C#: R1; D: R2, G1; D#: R3, G2; E: G3; F: M1; F#: M2; G: P; G#: D1; A: D2, N1; A#: D3, N2; B: N3
+            </p>
+            <p>melakarta ragas have the following rules: they must have all seven notes, and must be symmetrical. moreover, they must have one of each note (the scales must be strictly ascending and descending for the arohanam and avarohanam), and R must come before G, and D must come before N. therefore, there are 72 different combinations of melakarta ragas, and this list is exhaustive. because melakarta ragas must adhere to these strict rules, they are known as "parent" ragas. any other raga ("child" raga, or janya raga) falls under a melakarta raga, and is simply formed using a subset of the notes in the melakarta raga. therefore, this website simply classifies songs under their parent, or melakarta raga.</p>
+            <h2>song lookup</h2>
+            <p>the <span style="color: rgb(197, 255, 203)"><a href="https://developer.spotify.com/documentation/web-api/" target="_blank">spotify api</a></span> is used to lookup the first song that is returned based on the user input.</p>
+            <h2>how the closest melakarta is calculated</h2>
+            <p>based on the track, the spotify api returns a <span style="color: rgb(197, 255, 203)"><a href="https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis" target="_blank">list of segments</a></span> for a song. each segment is determined based on significant changes in timbre or pitch. using the pitch vector for each segment, a tally is done and transposed to the c major scale, to then determine which note per group is most prevalent. finally, an edit distance calculation is used to map the resulting tally to the closest melakarta raga.</p>
+            </div>
+    </body>
+</html>

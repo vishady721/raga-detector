@@ -22,6 +22,22 @@ body {
     top: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    padding-inline: 15px 15px;
+}
+
+.about {
+    border: rgb(255, 230, 248);
+    text-align: center;
+    position: relative;
+    left: 50%;
+    top: 7%;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+    padding-inline: 15px 15px;
+}
+
+.about p {
+  padding-inline: 25px 25px;
 }
 
 
@@ -41,4 +57,38 @@ input[type="submit"] {
     cursor: pointer;
     border: 1px solid rgb(255, 230, 248);
     font-size: 20px;
+}
+
+.topnav {
+  font-size: 25px;
+  background-color: rgba(0,0,0,0);
+  overflow: hidden;
+  color: rgb(167, 243, 255);
+  text-decoration: none;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  color: rgb(197, 255, 203);
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: rgba(0,0,0,0);
+  padding-inline: 20px 20px;
+}
+a:link, a:hover, a:visited, a:active{
+  text-decoration: none;
+  color:inherit;
+}
+
+.container a:hover {
+  color: rgb(197, 255, 203);
+}
+a.navvy {
+  padding-inline: 20px 20px;
+}
+
+h2 {
+  color: #fffee6;
 }

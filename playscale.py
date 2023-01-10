@@ -1,6 +1,6 @@
 import math  
-import pyaudio  
-
+import numpy as np 
+from scipy.io.wavfile import write
 
 scale_notes = {
     # pitch standard A440 ie a4 = 440Hz
@@ -23,71 +23,44 @@ scale_notes = {
 }
 
 
-def playnote(note, note_style = None):
-    octave = 3
-    if note == 'S2':
-        note = 'S'
-        octave = 4
-    frequency = scale_notes[note] * (2**(octave + 1))
-
-    p = pyaudio.PyAudio()  # initialize pyaudio
-
-    # sampling rate
-    sample_rate = 22050
-
-    LENGTH = 1  # seconds to play sound
-
-    frames = int(sample_rate * LENGTH)
-
-    wavedata = ''
-
-    # generating waves
-    stream = p.open(
-        format=p.get_format_from_width(1),
-        channels=1,
-        rate=sample_rate,
-        output=True)
-    for x in range(frames):
-        wave = math.sin(x / ((sample_rate / frequency) / math.pi)) * 127 + 128
-
-        if note_style == 'bytwos':
-            for i in range(3):
-                wave += math.sin((2 + 2**i) * x /
-                                 ((sample_rate / frequency) / math.pi)) * 127 + 128
-            wavedata = (chr(int(wave / 4)
-                            ))
-
-        elif note_style == 'even':
-            for i in range(3):
-                wave += math.sin((2 * (i + 1)) * x /
-                                 ((sample_rate / frequency) / math.pi)) * 127 + 128
-            wavedata = (chr(int(wave / 4)
-                            ))
-
-        elif note_style == 'odd':
-            for i in range(3):
-                wave += math.sin(((2 * i) + 1) * x /
-                                 ((sample_rate / frequency) / math.pi)) * 127 + 128
-            wavedata = (chr(int(wave / 4)
-                            ))
-
-        elif note_style == 'trem':
-            wave = wave * (1 + 0.5 * math.sin((1 / 10)
-                                              * x * math.pi / 180)) / 2
-            wavedata = (chr(int(wave)))
-
-        else:
-            wavedata = (chr(int(wave))
-                        )
-
-        stream.write(wavedata)
-
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-
-def play_raga(raga):
-    notes = raga.split(" ")[:-1]
+def play_raga(arorep):
+    
+    wavedata = []
+    notes = arorep.split(' ')[:-1]
     notes.append('S2')
-    for elem in notes:
-        playnote(elem)
+    notes.append('null')
+    notes.extend([elem for elem in notes[::-1]])
+    notes.append('null')
+    # sampling rate
+    sample_rate = 44100
+    gain = 0.95
+    for note in notes:
+        if note == 'null':
+            frequency = 0
+            LENGTH = 0.4
+        else:
+            LENGTH = 0.65  # seconds to play sound
+            if note == 'S2':
+                note = 'S'
+                octave = 4
+            else: octave = 3
+            frequency = scale_notes[note] * (2**(octave + 1))
+        frames = int(sample_rate * LENGTH)
+
+        wave_before_envelope=[]
+        for x in range(frames):
+            wave = gain*math.sin(2 * math.pi * frequency * x * (1/sample_rate))
+            wave_before_envelope.append(float(wave))
+    
+        wavedata.extend(np.array(wave_before_envelope)*create_envelope(len(wave_before_envelope), 3/7., 4/7., 2, 1.5))
+    enveloped_data = np.array(wavedata)
+    write("test.wav", sample_rate, enveloped_data.astype(np.float32))
+
+def create_envelope(len_samples, attack_prop, decay_prop, n1, n2):
+    num_attack = np.round(len_samples*attack_prop)
+    num_decay = np.round(len_samples*decay_prop)
+    attack_frames = np.arange(num_attack)
+    decay_frames = np.arange(num_decay)
+    attack_frames = ((attack_frames*1./num_attack)**(1./n1))
+    decay_frames = (1 - (decay_frames*1./num_decay)**(1./n2))
+    return np.append(attack_frames, decay_frames)
